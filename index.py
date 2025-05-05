@@ -6,7 +6,10 @@ from textblob import TextBlob
 import plotly.graph_objects as go
 import re
 import nltk
-nltk.download('punkt')
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
 
 
 # ----- SETTING PAGE -----
