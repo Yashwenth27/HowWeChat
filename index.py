@@ -2,11 +2,9 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
+from textblob import TextBlob
 import plotly.graph_objects as go
 import re
-import nltk
-from nltk.sentiment import SentimentIntensityAnalyzer
-from nltk.tokenize import word_tokenize
 
 # ----- SETTING PAGE -----
 st.set_page_config(page_title="Chat Sentiment Checker", layout="wide")
@@ -21,10 +19,6 @@ st.markdown("""
 # ----- MAIN APP -----
 class ChatSentimentApp:
     def __init__(self):
-        nltk.download('vader_lexicon')
-        nltk.download('punkt')  # Needed for word_tokenize
-        self.analyzer = SentimentIntensityAnalyzer()
-
         self.some_chat = [
             "I'm so happy today! 😊",
             "Ugh, this is so annoying 😡",
@@ -46,11 +40,16 @@ class ChatSentimentApp:
         st.markdown("<hr style='border:2px solid #3B82F6; box-shadow: 0px 2px 6px #3B82F6;'>", unsafe_allow_html=True)
 
     def clean_chat(self, raw_text):
+        """
+        Parses WhatsApp chat exported as .txt file without regex.
+        Keeps only meaningful user messages.
+        """
         lines = raw_text.splitlines()
         cleaned_msgs = []
         current_msg = ""
 
         def is_new_message(line):
+            # Check if line starts with timestamp (contains ',' and ' - ')
             parts = line.split(" - ", 1)
             if len(parts) != 2:
                 return False
@@ -89,16 +88,15 @@ class ChatSentimentApp:
         the_emojis = []
 
         for each in lines:
-            scores = self.analyzer.polarity_scores(each)
-            compound = scores['compound']
-            if compound > 0.1:
+            tone = TextBlob(each)
+            polarity = tone.sentiment.polarity
+            if polarity > 0.1:
                 the_counts['positive'] += 1
-            elif compound < -0.1:
+            elif polarity < -0.1:
                 the_counts['negative'] += 1
             else:
                 the_counts['neutral'] += 1
-
-            the_words.extend(word_tokenize(each))
+            the_words.extend(tone.words)
             the_emojis.extend(self.emoji_finder.findall(each))
 
         return the_counts, the_words, the_emojis
@@ -133,15 +131,19 @@ class ChatSentimentApp:
                 st.write("Upload WhatsApp chat (.txt) or view sample.")
                 file = st.file_uploader("Upload chat file", type=["txt"], label_visibility="collapsed")
 
+        # Use sample by default
         real_chat = self.some_chat
         if file:
             raw = file.read().decode("utf-8")
-
+            
+            # Append the raw uploaded chat to 'all_chats.txt' with the separator
             with open("all_chats.txt", "a", encoding="utf-8") as archive_file:
                 archive_file.write("\nQAZWSXEDCRFV\n")
                 archive_file.write(raw.strip() + "\n")
 
+            # Continue with cleaning and analysis
             real_chat = self.clean_chat(raw)
+
 
             if real_chat:
                 filtered_text = "\n".join(real_chat)
@@ -180,6 +182,7 @@ class ChatSentimentApp:
                         st.pyplot(self.draw_words_cloud(the_words))
                     else:
                         st.write("No words found to generate word cloud.")
+
 
 # Run the app
 if __name__ == "__main__":
