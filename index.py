@@ -5,6 +5,9 @@ from wordcloud import WordCloud
 from textblob import TextBlob
 import plotly.graph_objects as go
 import re
+import nltk
+nltk.download('punkt')
+
 
 # ----- SETTING PAGE -----
 st.set_page_config(page_title="Chat Sentiment Checker", layout="wide")
