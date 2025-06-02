@@ -34,7 +34,7 @@
 1. Clone the repo:
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/how-we-chat.git
+   git clone https://github.com/Yashwenth27/HowWeCha.git
    cd how-we-chat
    ```
 
