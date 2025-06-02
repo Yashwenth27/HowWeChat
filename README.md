@@ -3,8 +3,6 @@
 
 [![Streamlit](https://img.shields.io/badge/platform-Streamlit-orange?logo=streamlit)](https://streamlit.io/)  
 [![Python](https://img.shields.io/badge/language-Python-blue?logo=python)](https://www.python.org/)  
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)  
-[![Last Commit](https://img.shields.io/github/last-commit/YOUR_USERNAME/how-we-chat.svg)](https://github.com/YOUR_USERNAME/how-we-chat)
 
 **How we chat ?** is a simple and interactive Streamlit app that analyzes the overall mood of your WhatsApp chats. Upload your exported `.txt` chat file and get an instant sentiment overview of how people really talk and feel in your conversations.
 
