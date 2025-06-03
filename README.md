@@ -1,6 +1,5 @@
 # HowWeChat ✨ A sentiment analysis tool for WeChat chat history.
 
-[![GitHub Repo](https://badgen.net/badge/github/repo/Yashwenth27/HowWeChat?icon=github)](https://github.com/Yashwenth27/HowWeChat)
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-v1.24.0-orange.svg)](https://streamlit.io/)
 [![Pandas](https://img.shields.io/badge/pandas-1.5.3-green.svg)](https://pandas.pydata.org/)
