@@ -32,22 +32,22 @@
 
 1. Clone the repo:
 
-   bash'''
+   ```bash
    git clone https://github.com/Yashwenth27/HowWeChat.git
    cd how-we-chat
-   '''
+   ```
 
 2. Install dependencies:
 
-   bash'''
+   ```bash
    pip install -r requirements.txt
-   '''
+   ```
 
 3. Launch the app:
 
-   bash'''
+   ```bash
    streamlit run app.py
-   '''
+   ```
 
 4. Open your browser and upload your WhatsApp .txt export or try the sample chats provided.
 
